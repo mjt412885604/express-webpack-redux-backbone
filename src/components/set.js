@@ -1,47 +1,32 @@
 import html from '../pages/set.html'
-import hostList from '../store/config'
-import {
-	doFetch,
-	local
-} from '../utils/utils';
-
-// const {
-// 	mine
-// } = hostList;
+import toast from './common/toast'
+import { store } from '../store'
 
 var Set = Backbone.View.extend({
 	el: '#app',
 
 	events: {
-		'click .page-set button': 'clickSpan'
+		'click .page-set .sign-out_btn': 'signOut'
 	},
 
-	initialize: function() {
+	initialize() {
 		this.render();
-		this.getMine();
 	},
 
-	render: function() {
+	render() {
 		this.$el.html(html)
 	},
 
-	getMine() {
-		// doFetch({
-		// 	url: mine,
-		// 	data: {
-		// 		userId: 1
-		// 	}
-		// }).then((data) => {
-		// 	console.log(data)
-		// 	$('.phone').html(data.phone);
-		// 	$('.photo img').attr('src', data.photo);
-		// }).catch((error) => {
-		// 	console.log(error)
-		// });
-	},
-
-	clickSpan: function(e) {
-		alert('you clicked the button');
+	signOut() {
+		store({
+            type: 'SET_LOGINOUT'
+        });
+		toast({
+			message: '退出登录',
+			callback(){
+				appRouter.navigate('login', true);
+			}
+		});
 	}
 });
 

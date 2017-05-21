@@ -47,6 +47,14 @@ const routes = {
 			}, 'index')
 		})
 	},
+	login() {
+		hasViews('login', () => {
+			require.ensure([], function(require) {
+				var AppView = require('./components/login');
+				App.views['login'] = AppView;
+			}, 'login')
+		})
+	},
 	about() {
 		hasViews('about', () => {
 			require.ensure([], function(require) {
@@ -63,12 +71,28 @@ const routes = {
 			}, 'order')
 		})
 	},
+	mine() {
+		hasViews('mine', () => {
+			require.ensure([], function(require) {
+				var AppView = require('./components/mine');
+				App.views['mine'] = AppView;
+			}, 'mine')
+		})
+	},
 	set() {
 		hasViews('set', () => {
 			require.ensure([], function(require) {
 				var AppView = require('./components/set');
 				App.views['set'] = AppView;
 			}, 'set')
+		})
+	},
+	forget() {
+		hasViews('forget', () => {
+			require.ensure([], function(require) {
+				var AppView = require('./components/forget');
+				App.views['forget'] = AppView;
+			}, 'forget')
 		})
 	},
 }

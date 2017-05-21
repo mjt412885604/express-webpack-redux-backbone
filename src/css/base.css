@@ -68,4 +68,29 @@ textarea {
     outline: none;
 }
 
+button:disabled {
+    opacity: .6;
+}
+
+button .weui-loading{
+    display: none;
+}
+
+button:disabled .weui-loading{
+    display: inline-block;
+}
+
+.ellipsis_row_1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ellipsis_row_2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
 

@@ -1,0 +1,215 @@
+$themeColor: #4A89DC;
+.native-toast {
+    background-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1024;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .native-toast-msg {
+        padding: 15px;
+        max-width: 80%;
+        background-color: rgba(0, 0, 0, .9);
+        color: #fff;
+        font-size: 16px;
+        border-radius: 8px;
+        word-break: break-word;
+        // transform: scale(1.1);
+        opacity: 0.5;
+        transition: all .2s ease-out;
+        &.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}
+
+.native-loading-content {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 13000;
+}
+
+.native-loading-content .native-loading-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition-duration: 400ms;
+    transition-duration: 400ms;
+}
+
+.native-loading-content .native-loading-dialog {
+    width: 270px;
+    position: absolute;
+    z-index: 13500;
+    left: 50%;
+    top: 50%;
+    margin-left: -135px;
+    margin-top: 0;
+    text-align: center;
+    border-radius: 13px;
+    overflow: hidden;
+    opacity: 0;
+    -webkit-transform: translate3d(0, -50%, 0) scale(1.185);
+    transform: translate3d(0, -50%, 0) scale(1.185);
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: opacity, -webkit-transform;
+    transition-property: transform, opacity;
+    transition-property: transform, opacity, -webkit-transform;
+    color: #000;
+}
+
+.native-loading-content .native-loading-dialog .modal-inner {
+    padding: 15px;
+    border-radius: 13px 13px 0 0;
+    position: relative;
+    background: rgba(255, 255, 255, .95);
+}
+
+.native-loading-content .native-loading-dialog .modal-inner .modal-title {
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+}
+
+.native-loading-content .native-loading-dialog .modal-inner .preloader {
+    width: 34px;
+    height: 34px;
+}
+
+.native-loading-content.modal-in {}
+
+.native-loading-content.modal-in .native-loading-mask {
+    visibility: visible;
+    opacity: 1;
+}
+
+.native-loading-content.modal-in .native-loading-dialog {
+    opacity: 1;
+    -webkit-transition-duration: 400ms;
+    transition-duration: 400ms;
+    -webkit-transform: translate3d(0, -50%, 0) scale(1);
+    transform: translate3d(0, -50%, 0) scale(1);
+}
+
+.preloader {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%236c6c6c'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-position: 50%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    -webkit-animation: preloader-spin 1s steps(12, end) infinite;
+    animation: preloader-spin 1s steps(12, end) infinite;
+}
+
+@-webkit-keyframes preloader-spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes preloader-spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.native-loading-full {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .9);
+    img {
+        width: 80px;
+    }
+    .container {
+        margin: 0 auto;
+        h1 {
+            font-family: 'Lato';
+            color: white;
+            text-transform: uppercase;
+            font-size: 1em;
+            letter-spacing: 1.5px;
+            text-align: center;
+            width: 155px;
+            margin-top: 20px;
+            -webkit-animation: fade 2s infinite;
+            -moz-animation: fade 2s infinite;
+        }
+        .stick {
+            width: 30px;
+            height: 3px;
+            background: white;
+            display: inline-block;
+            margin-left: -8px;
+        }
+        .stick:nth-child(n) {
+            transform: rotate(30deg);
+            animation: fall 2s infinite;
+        }
+        .stick:nth-child(2n) {
+            transform: rotate(-30deg);
+            animation: rise 2s infinite;
+        }
+        .stick:nth-child(1) {
+            background: #2ecc71;
+        }
+        .stick:nth-child(2) {
+            background: #3498db;
+        }
+        .stick:nth-child(3) {
+            background: #9b59b6;
+        }
+        .stick:nth-child(4) {
+            background: #e67e22;
+        }
+        .stick:nth-child(5) {
+            background: #c0392b;
+        }
+        .stick:nth-child(6) {
+            background: #e74c3c;
+        }
+    }
+}
+
+@keyframes rise {
+    50% {
+        transform: rotate(30deg);
+    }
+}
+
+@keyframes fall {
+    50% {
+        transform: rotate(-30deg);
+    }
+}
+
+@keyframes fade {
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

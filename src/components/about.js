@@ -1,4 +1,6 @@
 import html from '../pages/about.html'
+import toast from './common/toast'
+
 var About = Backbone.View.extend({
 	el: '#app',
 
@@ -15,7 +17,7 @@ var About = Backbone.View.extend({
 	},
 
 	clickSpan: function(e) {
-		alert('you clicked the button');
+		toast('you clicked the button');
 	}
 });
 

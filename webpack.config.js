@@ -29,7 +29,7 @@ module.exports = {
 				use: ['css-loader', 'postcss-loader', 'sass-loader']
 			})
 		}, {
-			test: /\.(png|jpg)$/,
+			test: /\.(png|jpg|svg|gif)$/,
 			use: 'url-loader?limit=8192&name=images/[name].[ext]'
 		}, {
 			test: /\.html$/,
@@ -38,11 +38,19 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: './', //本地服务器所加载的页面所在的目录
-		port: 8082,
+		port: 8081,
 		historyApiFallback: true, //不跳转
 		inline: true, //实时刷新
+		host: '192.168.1.103',
 		proxy: {
-
+			'/g1': {
+                target: 'http://bak.cnlod.cn:8888',
+                changeOrigin: true
+            },
+            '/p1': {
+                target: 'http://bak.cnlod.cn:8888',
+                changeOrigin: true
+            }
 		}
 	},
 	plugins: [

@@ -1,0 +1,51 @@
+<div class="page-forget">
+    <div class="common-navbar">
+        <div class="left">
+            <a href="javascript:history.go(-1)" class="back">返回</a>
+        </div>
+        <div class="center">找回密码</div>
+    </div>
+    <div class="page-forget_input">
+        <form id="form" name="form">
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">手机号</div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" name="tel" type="tel" placeholder="输入手机号">
+                    </div>
+                    <div class="weui-cell__ft cancel"><i class="weui-icon-cancel"></i></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">验证码</div>
+                    <div class="weui-cell__bd" style="padding-right: 10px;">
+                        <input class="weui-input" name="code" type="url" placeholder="输入验证码">
+                    </div>
+                    <div class="weui-cell__ft flexRow">
+                        <a class="common-mini_btn circle countDown" href="javascript:;">获取验证码</a>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">重置密码</div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" name="password" type="password" placeholder="输入密码">
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">确认密码</div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" name="reset" type="password" placeholder="重复输入">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <label for="weuiAgree" class="weui-agree">
+            <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+            <span class="weui-agree__text">
+                我已阅读并接受<a href="javascript:void(0);">《用户协议》</a>
+            </span>
+        </label>
+        <div class="forget-submit">
+            <button id="forget-submit" class="common-lagrge_btn circle"><i class="weui-loading"></i>找回密码</button>
+        </div>
+    </div>
+</div>

@@ -1,31 +1,27 @@
 import routes from './router'
 import weui from 'weui.js'
-import 'weui';
-import './css/main.scss';
+import 'weui'
+
+import './css/main.scss'
 
 window.weui = weui;
-const {
-	index,
-	about,
-	order,
-	set
-} = routes;
+
 var Routes = Backbone.Router.extend({
 	routes: {
 		'index': 'index',
+		'login': 'login',
 		'about': 'about',
 		'order': 'order',
+		'mine': 'mine',
 		'set': 'set',
+		'forget': 'forget',
 		'*actions': 'index'
 	},
-	index,
-	about,
-	order,
-	set,
+	...routes,
 	initialize: function() {}
 })
 
-var router = new Routes();
-router.on('route', function(route, params) {});
+window.appRouter = new Routes();
+appRouter.on('route', function(route, params) {});
 
 Backbone.history.start();
