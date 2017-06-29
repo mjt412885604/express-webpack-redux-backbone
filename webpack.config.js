@@ -74,7 +74,7 @@ module.exports = {
 		host: '192.168.8.170',
 		proxy: {
 			'/g1': {
-				target: 'http://oa.cnlod.cn:8888',
+				target: '',
 				changeOrigin: true
 			}
 		}
