@@ -1,74 +1,97 @@
-var path = require('path')
-var webpack = require('webpack')
+var path = require('path');
+var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin"); //css单独打包
 var HtmlWebpackPlugin = require('html-webpack-plugin'); //生成html
-var HtmlRoutes = require('./config');
+var CleanWebpackPlugin = require('clean-webpack-plugin'); // 删除文件
+
+const debug = process.env.NODE_ENV === 'production' ? false : true; // 全局debug
+
+const chunkUtils = debug ? [] : ['utils', '@/components']; // 提取公共组件
 
 module.exports = {
-	entry: __dirname + '/src/main.js',
+	entry: {
+		main: __dirname + '/src/main.js',
+		vendor: ['jquery', 'Backbone', 'weui.js', ...chunkUtils]
+	},
 	output: {
 		path: __dirname + '/build',
-		filename: 'js/[name].build.js',
-		chunkFilename: "js/[name].chunk.js"
+		filename: debug ? 'js/[name].js' : 'js/[name].[hash:8].js',
+		chunkFilename: debug ? 'js/[name].js' : 'js/[name].[chunkHash:8].js'
 	},
 	module: {
 		rules: [{
 			test: /\.js$/,
-			use: ['babel-loader'],
+			loader: 'babel-loader',
 			include: /src/
 		}, {
 			test: /\.css$/,
 			use: ExtractTextPlugin.extract({
 				fallback: "style-loader",
-				use: ['css-loader', 'postcss-loader']
+				use: [{
+					loader: 'css-loader',
+					options: {
+						minimize: true //css压缩
+					}
+				}, 'postcss-loader']
 			})
 		}, {
 			test: /\.scss$/,
 			use: ExtractTextPlugin.extract({
 				fallback: "style-loader",
-				use: ['css-loader', 'postcss-loader', 'sass-loader']
+				use: [{
+					loader: 'css-loader',
+					options: {
+						minimize: true //css压缩
+					}
+				}, 'postcss-loader', 'sass-loader']
 			})
 		}, {
-			test: /\.(png|jpg)$/,
+			test: /\.(png|jpg|svg|gif)$/,
 			use: 'url-loader?limit=8192&name=images/[name].[ext]'
 		}, {
 			test: /\.html$/,
-			use: 'raw-loader'
+			use: [{
+				loader: 'html-loader',
+				options: {
+					minimize: true
+				}
+			}],
+			include: /src/
+		}, {
+			test: /\.json$/,
+			loader: 'json-loader'
 		}]
 	},
+	resolve: {
+		extensions: ['.scss', '.js'],
+		alias: {
+			utils: path.resolve(__dirname, 'src/utils'),
+			'@': path.resolve(__dirname, 'src/'),
+		}
+	},
 	devServer: {
-		contentBase: './', //本地服务器所加载的页面所在的目录
-		port: 8082,
-		historyApiFallback: true, //不跳转
-		inline: true, //实时刷新
+		port: 8080,
+		host: '192.168.8.170',
 		proxy: {
-
+			'/g1': {
+				target: 'http://oa.cnlod.cn:8888',
+				changeOrigin: true
+			}
 		}
 	},
 	plugins: [
-		new ExtractTextPlugin('main.css'),
-		new webpack.LoaderOptionsPlugin({
-			options: {
-				postcss: function() {
-					return [
-						// require('postcss-cssnext')({
-						// 	browsers: ['iOS >= 7', 'Android >= 4.1']
-						// }),
-						// require('postcss-pxtorem')({
-						// 	rootValue: 100,
-						// 	propWhiteList: []
-						// }),
-						require('autoprefixer')({
-							browsers: ['iOS >= 7', 'Android >= 4.1']
-						})
-					]
-				}
-			}
-		}),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.LoaderOptionsPlugin({}),
+		new ExtractTextPlugin({
+			filename: debug ? 'css/[name].css' : 'css/[name].[chunkHash:8].css',
+			allChunks: !debug, // 模块中提取css
+		}), // 分离css
+		// html入口
 		new HtmlWebpackPlugin({
 			filename: './index.html',
 			template: './src/template/index.html',
-			hash: true,
+			hash: !debug,
+			chunks: ['main', 'vendor'],
 			minify: { //压缩HTML文件
 				removeComments: true, //移除HTML中的注释
 				collapseWhitespace: true, //删除空白符与换行符
@@ -76,46 +99,53 @@ module.exports = {
 				minifyJS: true //js也在一行
 			}
 		}),
+
+		// 全局
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery",
 			Backbone: 'backbone',
+			weui: 'weui.js'
 		}),
+
+		// 提取js公共插件
+		new webpack.optimize.CommonsChunkPlugin({
+			names: ['vendor'],
+		}),
+
 	],
 	devtool: '#eval-source-map'
 }
 
+// 打包生产版本
+if (!debug) {
+	module.exports.devtool = '#source-map';
 
-if (process.env.NODE_ENV === 'production') {
-	module.exports.devtool = '#source-map'
-		// http://vue-loader.vuejs.org/en/workflow/production.html
 	module.exports.plugins = (module.exports.plugins || []).concat([
+
+		// 清空打包文件
+		new CleanWebpackPlugin(['build'], {
+			root: path.resolve(__dirname),
+			verbose: true,
+			dry: false,
+		}),
+
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: '"production"'
 			}
 		}),
+
+		// 压缩js
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
-				warnings: false
+				warnings: false,
+				drop_console: true
 			}
 		}),
-		new webpack.optimize.OccurrenceOrderPlugin()
-	])
 
-	// 多页面打包地址
-	Object.keys(HtmlRoutes).forEach((val) => {
-		module.exports.plugins.push(new HtmlWebpackPlugin({
-			filename: 'pages/' + HtmlRoutes[val] + '.html',
-			template: 'src/pages/' + HtmlRoutes[val] + '.html',
-			inject: false,
-			cache: true,
-			minify: { //压缩HTML文件
-				removeComments: true, //移除HTML中的注释
-				collapseWhitespace: true, //删除空白符与换行符
-				conservativeCollapse: true,
-				minifyJS: true //js也在一行
-			}
-		}))
-	})
+		// 按顺序执行
+		new webpack.optimize.OccurrenceOrderPlugin()
+
+	])
 }

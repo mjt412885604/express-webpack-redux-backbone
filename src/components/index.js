@@ -1,32 +1,9 @@
-import html from '../pages/index.html'
-import {
-	doFetch,
-	platform
-} from '../utils/utils';
+import Toast from './toast'
+import Loading from './loading'
 
-var Index = Backbone.View.extend({
-	el: '#app',
+import './component.scss'
 
-	events: {
-		'click .page-index button': 'clickSpan'
-	},
-
-	initialize: function() {
-		this.render();
-		this.getDoctorList();
-	},
-
-	render: function() {
-		this.$el.html(html)
-	},
-
-	getDoctorList() {
-
-	},
-
-	clickSpan: function(e) {
-		alert('index.html');
-	}
-});
-
-module.exports = new Index;
+export {
+    Loading,
+    Toast
+}

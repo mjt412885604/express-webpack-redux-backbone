@@ -1,0 +1,147 @@
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    box-sizing: border-box;
+}
+
+body {
+    /*font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;*/
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    background-color: #F3F3F3;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+ul,
+li,
+dt,
+dd,
+dl {
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+input[type=number]::-webkit-textfield-decoration-container {
+    background-color: transparent;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input:disabled {
+    color: #626262;
+    -webkit-text-fill-color: #626262;
+    -webkit-opacity: 1;
+}
+
+input.Default:disabled {
+    color: #999;
+    -webkit-text-fill-color: #999;
+    -webkit-opacity: 1;
+}
+
+textarea {
+    resize: none;
+    font-size: 14px;
+    outline: none;
+}
+
+button:disabled {
+    opacity: .6;
+}
+
+button .weui-loading{
+    display: none;
+}
+
+button:disabled .weui-loading{
+    display: inline-block;
+}
+
+.ellipsis_row_1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ellipsis_row_2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.padding10px {
+    padding: 10px;
+}
+
+.padding20px{
+    padding: 20px 0;
+}
+
+.paddingTop10px {
+    padding-top: 10px;
+}
+
+.paddingBottom10px {
+    padding-bottom: 10px;
+}
+
+.paddingLeft10px{
+    padding-left: 10px;
+}
+
+.paddingRight10px{
+    padding-right: 10px;
+}
+
+.margin10px {
+    margin: 10px;
+}
+
+.marginTop5px{
+    margin-top: 5px;
+}
+
+.marginTop10px {
+    margin-top: 10px;
+}
+
+.marginBottom10px {
+    margin-bottom: 10px;
+}
+
+.marginLeft10px{
+    margin-left: 10px;
+}
+
+.marginRight10px{
+    margin-right: 10px;
+}
+
+

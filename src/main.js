@@ -1,31 +1,22 @@
-import routes from './router'
-import weui from 'weui.js'
-import 'weui';
-import './css/main.scss';
+import * as route from '@/router';
 
-window.weui = weui;
-const {
-	index,
-	about,
-	order,
-	set
-} = routes;
+import 'weui'
+import '@/css/main.scss'
+
+/** @type {[debug]} [开发调试状态] */
+window.debug = process.env.NODE_ENV !== 'production';
+
+// 实例化路由
 var Routes = Backbone.Router.extend({
-	routes: {
-		'index': 'index',
-		'about': 'about',
-		'order': 'order',
-		'set': 'set',
-		'*actions': 'index'
-	},
-	index,
-	about,
-	order,
-	set,
-	initialize: function() {}
+	routes: route.router_object,
+	...route.routes,
+	initialize() {}
 })
 
-var router = new Routes();
-router.on('route', function(route, params) {});
+window.appRouter = new Routes();
+
+appRouter.on('route', function(route, params) {
+	document.body.scrollTop = 0; // 每次切换页面容器置顶
+});
 
 Backbone.history.start();
