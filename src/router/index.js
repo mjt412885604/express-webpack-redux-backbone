@@ -4,6 +4,7 @@ function CommonController(controller, params) {
     }
     appRouter.currentController = controller;
     controller(params);
+
 }
 
 export const router_object = {
