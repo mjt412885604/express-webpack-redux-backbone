@@ -1,0 +1,14 @@
+<div class="page-index">
+    <div class="title">index页面</div>
+    <p><%=name%></p>
+    <div class="weui-cells">
+        <%for(var i=0; i<10;i++){%>
+            <div class="weui-cell">
+                <div class="weui-cell__bd"><%=('第' + (i+1) + '行')%></div>
+            </div>
+        <%}%>
+    </div>
+    <div class="weui-btn-area">
+        <button class="weui-btn weui-btn_primary">toast</button>
+    </div>
+</div>

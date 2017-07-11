@@ -1,4 +1,4 @@
-import html from './template.html'
+import html from './template.ejs'
 
 import {
 	Toast,
@@ -17,7 +17,7 @@ var Home = Backbone.View.extend({
 	},
 
 	render() {
-		this.$el.html(html)
+		this.$el.html(html())
 	},
 
 	clickTips(){

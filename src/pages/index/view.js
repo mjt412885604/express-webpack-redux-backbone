@@ -1,4 +1,4 @@
-import html from './template.html'
+import html from './template.ejs'
 
 import {
 	render
@@ -20,8 +20,8 @@ var Index = Backbone.View.extend({
 	},
 
 	render() {
-		this.$el.html(render(html, {
-			name: 'lilei'
+		this.$el.html(html({
+			name: 'hello ejs'
 		}))
 	},
 

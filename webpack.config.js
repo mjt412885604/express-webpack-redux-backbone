@@ -49,13 +49,8 @@ module.exports = {
 			test: /\.(png|jpg|svg|gif)$/,
 			use: 'url-loader?limit=8192&name=images/[name].[ext]'
 		}, {
-			test: /\.html$/,
-			use: [{
-				loader: 'html-loader',
-				options: {
-					minimize: true
-				}
-			}],
+			test: /\.ejs$/,
+			use: ['ejs-loader'],
 			include: /src/
 		}, {
 			test: /\.json$/,
@@ -70,7 +65,7 @@ module.exports = {
 		}
 	},
 	devServer: {
-		port: 8080,
+		port: 8088,
 		host: '192.168.8.170',
 		proxy: {
 			'/g1': {
