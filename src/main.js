@@ -3,8 +3,9 @@ import * as route from '@/router';
 import 'weui'
 import '@/css/main.scss'
 
-/** @type {[debug]} [开发调试状态] */
-window.debug = process.env.NODE_ENV !== 'production';
+// 状态管理工具
+import Store from '@/redux';
+window.Store = Store;
 
 // 实例化路由
 var Routes = Backbone.Router.extend({

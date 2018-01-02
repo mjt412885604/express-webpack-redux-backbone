@@ -1,88 +1,63 @@
-var isLoading = null;
+var isLoading,
+    timer;
 class Loading {
     constructor({
-        title = 'Loading...',
+        message = '加载中...',
         time = 30000,
-        full = false,
-        el = document.body
+        el = $('body')
     } = {}) {
         if (typeof arguments[0] == 'string') {
-            title = arguments[0];
+            message = arguments[0];
         }
-        this.content = '';
+
+        this.message = message;
         this.time = time;
         this.el = el;
-        this.full = full;
         if (isLoading) this.destroy();
 
-        this.target = $('<div class="native-loading-content"></div>');
-        this.content = `<div class="native-loading-mask"></div>
+        this.target = $(`<div class="native-loading-content modal-in">
+                        <div class="native-loading-mask"></div>
                         <div class="native-loading-dialog">
                             <div class="preloader"></div>
-                        </div>`;
-
-        this.fullContent = `<div class="oa-loading">
-                                <div class="mask"></div>
-                                <div class="loader-inner">
-                                    <div class="loader-line-wrap">
-                                        <div class="loader-line"></div>
-                                    </div>
-                                    <div class="loader-line-wrap">
-                                        <div class="loader-line"></div>
-                                    </div>
-                                    <div class="loader-line-wrap">
-                                        <div class="loader-line"></div>
-                                    </div>
-                                    <div class="loader-line-wrap">
-                                        <div class="loader-line"></div>
-                                    </div>
-                                    <div class="loader-line-wrap">
-                                        <div class="loader-line"></div>
-                                    </div>
-                                </div>
-                            </div>`;
+                            ${this.message ? '<div class="modal-title">' + this.message + '</div>' : ''}
+                        </div></div>`);
 
         this.show();
         isLoading = this;
     }
 
     show() {
-        this.target && this.target.on('touchmove', (e) => {
-            e.preventDefault();
-        })
-
-        if (this.full) {
-            this.target.html(this.fullContent);
-            this.el.appendChild(this.target[0]);
-            setTimeout(() => {
-                this.destroy();
-            }, this.time)
-            return;
-        }
-
-        this.target.html(this.content);
-        this.el.appendChild(this.target[0]);
         setTimeout(() => {
-            this.target.addClass('modal-in');
-            setTimeout(() => {
+            this.el.append(this.target);
+            this.target.on('touchmove', function (e) {
+                e.preventDefault();
+            })
+            timer = setTimeout(() => {
                 this.destroy();
             }, this.time)
-        }, 10);
+        }, 10)
     }
 
-    title(title) {
-        if (title && !this.full) {
-            this.target.find('.modal-title').html(title);
+    title(text) {
+        if (text && this.message) {
+            this.message = text;
+            this.target.find('.modal-title').html(this.message);
         }
     }
 
     hide() {
-        this.destroy();
+        this.destroy()
+        timer && clearTimeout(timer)
     }
 
     destroy() {
-        $('.native-loading-content').remove();
-        this.target = null
+        if (!this.target) return;
+        setTimeout(() => {
+            if (this.target) {
+                $('.native-loading-content').remove();
+                this.target = null
+            }
+        }, 100)
     }
 }
 

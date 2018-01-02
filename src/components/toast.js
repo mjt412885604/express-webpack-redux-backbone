@@ -1,49 +1,61 @@
-var target,
-    timer;
+var prevToast;
+class Toast {
+    constructor(opt) {
+        if (!opt) return;
 
-function toast({
-    message = '',
-    time = 2500,
-    callback
-} = {}) {
-    if (target) {
-        hide()
-    }
-
-    target = document.createElement('div');
-    target.className = 'native-toast';
-
-    var msg = document.createElement('div');
-    msg.className = 'native-toast-msg';
-
-    if (typeof arguments[0] == 'string' || typeof arguments[0] == 'number') {
-        msg.innerHTML = arguments[0];
-    } else {
-        msg.innerHTML = message
-    }
-
-    target.appendChild(msg);
-    document.body.appendChild(target);
-
-    target && target.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-    }, false);
-
-    timer = setTimeout(() => {
-        hide();
-        if (callback instanceof Function) {
-            callback();
+        if (prevToast) {
+            prevToast.destroy();
         }
-    }, time);
+        this.timeout = opt.timeout || 2000;
+        this.callback = opt.callback;
 
-    function hide() {
-        msg.classList.add('active');
+        if (typeof arguments[0] == 'string' || typeof arguments[0] == 'number') {
+            this.message = arguments[0];
+        } else {
+            this.message = opt.message;
+        }
+
+        this.target = $(`
+            <div class="native-toast">
+                <div class="native-toast-msg">${this.message}</div>
+            </div>
+        `)
+
+        this.show();
+        prevToast = this;
+    }
+
+    show() {
         setTimeout(() => {
-            document.body.removeChild(target);
-            target = null;
-            clearTimeout(timer);
+            $('body').append(this.target);
+            this.target.on('touchmove', function (e) {
+                e.preventDefault();
+            })
+            this.hide();
+        }, 10)
+    }
+
+    hide() {
+        setTimeout(() => {
+            this.destroy()
+        }, this.timeout)
+    }
+
+    destroy() {
+        if (!this.target) return;
+        this.target.find('.native-toast-msg').addClass('active');
+        setTimeout(() => {
+            if (this.target) {
+                this.target.remove()
+                this.target = null;
+                typeof this.callback == 'function' && this.callback();
+            }
         }, 100)
     }
+}
+
+function toast(opt) {
+    return new Toast(opt)
 }
 
 export default toast;

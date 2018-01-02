@@ -16,13 +16,16 @@ export const router_object = {
 
 export const routes = {
     index(params) {
-        require.ensure([], function(require) {
+        /*require.ensure([], function(require) {
             CommonController(require('../pages/index/controller'), params)
-        }, 'index');
+        }, 'index');*/
+        import('@/pages/index/controller').then(controller => {
+            CommonController(controller, params)
+        })
     },
     home(params) {
-        require.ensure([], function(require) {
-            CommonController(require('../pages/home/controller'), params)
-        }, 'home');
+        import('@/pages/home/controller').then(controller => {
+            CommonController(controller, params)
+        })
     },
 }

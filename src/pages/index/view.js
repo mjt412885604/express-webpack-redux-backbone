@@ -2,7 +2,7 @@ import html from './template.ejs'
 
 import {
 	render
-} from 'utils'
+} from '@/utils'
 import {
 	Toast,
 	Loading
@@ -17,6 +17,8 @@ var Index = Backbone.View.extend({
 
 	initialize() {
 		this.render();
+
+		console.log(Store.getState())
 	},
 
 	render() {

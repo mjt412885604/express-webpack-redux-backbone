@@ -5,7 +5,6 @@
 /**/esms_log
 /**/update_log
 /**/yilixiongfeng_log
-/**/build
 /**/.settings
 /**/.project
 /**/node_modules
@@ -20,5 +19,5 @@
 /**/logs
 /doc/pd16/Standard Physical Report_files
 /doc/pd16/Standard Physical Report.html
-/**/build
 /**/node_modules
+/**/dist
