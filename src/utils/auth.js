@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 
 const Authorization = 'Authorization'
 
+
 export function getToken() {
     return Cookies.get(Authorization)
 }
