@@ -23,7 +23,7 @@ module.exports = {
             include: [resolve('src')]
         }, {
             test: /\.(png|jpg|svg|gif)$/,
-            use: 'url-loader?limit=8192&name=images/[name].[ext]'
+            use: 'url-loader?limit=8192&name=static/img/[name].[ext]'
         }, {
             test: /\.ejs$/,
             use: {

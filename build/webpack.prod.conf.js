@@ -11,14 +11,18 @@ const config = require('../config')
 
 const chunkUtils = ['@/utils', '@/utils/fetch', '@/components']; // 提取公共组件
 
+Object.keys(baseWebpackConfig.entry).forEach(function (name) {
+    baseWebpackConfig.entry[name] = [require.resolve('./polyfills.js')].concat(baseWebpackConfig.entry[name])
+})
+
 module.exports = merge(baseWebpackConfig, {
     entry: {
-        'vendor': ['jquery', 'Backbone', 'weui.js', ...chunkUtils]
+        'vendor': [ ...chunkUtils]
     },
     output: {
         path: config.build.assetsRoot,
-        filename: 'js/[name].[hash:8].js',
-        chunkFilename: 'js/[id].[chunkHash:8].js',
+        filename: 'static/js/[name].[hash:8].js',
+        chunkFilename: 'static/js/[id].[chunkHash:8].js',
         publicPath: config.build.assetsPublicPath
     },
     devtool: config.build.devtool,
@@ -65,7 +69,7 @@ module.exports = merge(baseWebpackConfig, {
             }
         }),
         new ExtractTextPlugin({
-            filename: 'css/[name].[contenthash:8].css',
+            filename: 'static/css/[name].[contenthash:8].css',
             allChunks: true, // 模块中提取css
         }),
         new OptimizeCSSPlugin({
@@ -107,16 +111,16 @@ module.exports = merge(baseWebpackConfig, {
             name: 'main',
             async: 'vendor-async',
             children: true,
-            minChunks: 3
+            minChunks: 2
         }),
         // copy custom static assets
-        /*new CopyWebpackPlugin([
+        new CopyWebpackPlugin([
             {
                 from: path.resolve(__dirname, '../static'),
                 to: config.build.assetsSubDirectory,
                 ignore: ['.*']
             }
-        ]),*/
+        ]),
         new webpack.optimize.ModuleConcatenationPlugin()
     ]
 })

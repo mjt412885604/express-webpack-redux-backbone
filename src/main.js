@@ -4,7 +4,7 @@ import 'weui'
 import '@/css/main.scss'
 
 // 状态管理工具
-import Store from '@/redux';
+import Store from '@/store';
 window.Store = Store;
 
 // 实例化路由

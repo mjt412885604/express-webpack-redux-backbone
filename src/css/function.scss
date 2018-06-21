@@ -1,16 +1,5 @@
 $baseFontSize: 16px;
 $fontSize: 14px;
-$themeColor: #43A4FB; // 52b5f0
-$themeHover: #72c1f1;
-$yellowColor: #fe9c1f;
-$redColor: #E95941;
-$fontBlue: #2ca9fd;
-$greenColor: #65C63B;
-$defaultColor: #626262;
-$default2Color: #828282;
-$linearLeft: #43a4fb;
-$linearRight: #6ecffa;
-$linearGradient: -webkit-linear-gradient(left, $linearLeft, $linearRight);
 
 @function pxToRem($px) {
     @return $px / $baseFontSize * 1rem;

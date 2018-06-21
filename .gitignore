@@ -19,5 +19,5 @@
 /**/logs
 /doc/pd16/Standard Physical Report_files
 /doc/pd16/Standard Physical Report.html
-/**/node_modules
-/**/dist
+/node_modules
+/dist
