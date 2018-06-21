@@ -11,9 +11,9 @@ const config = require('../config')
 
 const chunkUtils = ['@/utils', '@/utils/fetch', '@/components']; // 提取公共组件
 
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
+/*Object.keys(baseWebpackConfig.entry).forEach(function (name) {
     baseWebpackConfig.entry[name] = [require.resolve('./polyfills.js')].concat(baseWebpackConfig.entry[name])
-})
+})*/
 
 module.exports = merge(baseWebpackConfig, {
     entry: {
@@ -53,7 +53,9 @@ module.exports = merge(baseWebpackConfig, {
     },
     plugins: [
         new webpack.DefinePlugin({
-            __DEV__: '"production"'
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
         }),
         // 清空打包文件
         new CleanWebpackPlugin(['dist'], {

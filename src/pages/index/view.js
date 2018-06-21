@@ -18,7 +18,17 @@ var Index = Backbone.View.extend({
 	initialize() {
 		this.render();
 
-		console.log(Store.getState())
+		let obj = {name: 'lilei', age: 26}
+
+		obj = Object.assign({}, {
+			age: 18,
+			time: 2018
+		}, obj)
+
+		this.getdatas().then(res => {
+			console.log(res)
+		})
+		console.log(Store.getState(), obj)
 	},
 
 	render() {
@@ -34,6 +44,12 @@ var Index = Backbone.View.extend({
 				appRouter.navigate('home', true);
 			}
 		});
+	},
+
+	getdatas(){
+		return new Promise((resolve, reject) => {
+			resolve('hello promise')
+		})
 	}
 
 

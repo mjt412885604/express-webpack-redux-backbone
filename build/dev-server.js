@@ -1,3 +1,6 @@
+process.env.NODE_ENV = 'development'
+
+
 const opn = require('opn')
 const path = require('path')
 const express = require('express')

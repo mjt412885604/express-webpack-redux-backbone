@@ -45,7 +45,9 @@ module.exports = merge(baseWebpackConfig, {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.DefinePlugin({
-            __DEV__: '"development"'
+            'process.env': {
+                NODE_ENV: '"development"'
+            }
         }),
         new ExtractTextPlugin({
             filename: '[name].css'
