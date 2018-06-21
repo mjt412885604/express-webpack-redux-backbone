@@ -3,6 +3,7 @@ import * as route from '@/router';
 import 'weui'
 import '@/css/main'
 
+
 // 状态管理工具
 import Store from '@/store';
 window.Store = Store;
